@@ -1,0 +1,177 @@
+<div class="Table">
+    <div class="Title">
+        <p>{title}</p>
+    </div>
+    <div class="Heading">
+        <div class="Cell">
+            <p>{h6}</p>
+        </div>
+        <div class="Cell">
+            <p>{h5}</p>
+        </div>
+        <div class="Cell">
+            <p>{h4}</p>
+        </div>
+				<div class="Cell">
+            <p>{h3}</p>
+        </div>
+        <div class="Cell">
+            <p>{h2}</p>
+        </div>
+        <div class="Cell">
+            <p>{h1}</p>
+        </div>
+			<div class="Cell">
+            <p>{h0}</p>
+        </div>
+    </div>
+	
+	{#each weeks as days_in_week}
+		<div class="Row">
+			{#each days_in_week as day_obj}
+        	    <div class="Cell {day_obj.type}">
+                    <p>{day_obj.day}</p>
+        	    </div>
+			{/each}
+		</div>
+    {/each}
+    
+</div>
+
+
+<script>
+	/**
+		exclusive range: _range(5,10) => [5, 6, 7, 8, 9]
+	*/
+	function _range (start, end) {
+  	return new Array(end - start).fill().map((d, i) => i + start);
+	}
+	
+	/**
+		calculate first day of month
+	*/
+	function _calc_fdom(td_date, td_dow) {
+		var diff = (td_date - 1) % 7;
+		if (td_dow < diff) {
+			td_dow = td_dow + 6;
+		}
+		var fdom = td_dow - diff;
+		return fdom;
+	}
+	
+	function calc_week(td_date, td_dow) {
+		var fdom = _calc_fdom(td_date, td_dow);
+        var first_week = _range(1, 8 - fdom);
+
+        var weeks = new Array();
+        var curr_week = new Array();
+
+        for (var day of first_week) {
+            var type = "normal";
+            if (day === td_date) {
+                type = "today";
+            }
+            curr_week.push({day: day, type: type});
+        }
+        weeks.push(curr_week.reverse());
+        
+        var base = first_week[first_week.length - 1] + 1;
+        console.log(first_week);
+        for (var i = 0; i <= 31 - base; i++) {
+            type = "normal";
+            if (i % 7 === 0) {
+                if (i !== 0) {
+                    weeks.push(curr_week.reverse());
+                }
+                curr_week = [];
+            }
+            if (i + base === td_date) {
+                type = "today";
+            }
+            curr_week.push({day: i + base, type: type});
+        }
+        if (curr_week.length > 0) {
+            var fill_len = 7 - curr_week.length
+            for (var i = 0; i < fill_len; i++) {
+                curr_week.push({day: '', type: "normal"})
+            }
+            weeks.push(curr_week.reverse());
+        }
+		return weeks;
+	}
+	
+	export default {
+		data() {
+			return {
+				td_date: 29,		// today date
+				td_dow: 3,			// today day of week, sat -> 0, sun -> 1
+			};
+		},
+		computed: {
+			weeks: ({td_date, td_dow}) => calc_week(td_date, td_dow)
+		}
+	};
+</script>
+
+
+<style>
+    .Table
+    {
+        display: table;
+        border-collapse: separate;
+        border: 1px none #000;
+        -moz-border-radius: 6px;
+        -webkit-border-radius: 6px;
+        border-radius: 6px;
+        border-spacing: 0px;
+        font-family: Helvetica;
+    }
+    .Title
+    {
+        display: table-caption;
+        text-align: center;
+        font-weight: bold;
+        font-size: larger;
+    }
+    .Heading
+    {
+        display: table-row;
+        font-weight: bold;
+        text-align: center;
+        background-color: gray;
+        color: #fff;
+        -moz-box-sizing: border-box;
+        -moz-border-radius: 6px;
+        box-sizing: border-box;
+        border-radius: 6px;
+        padding-left: 5px;
+        padding-right: 5px;
+    }
+    .Row
+    {
+        display: table-row;
+    }
+    .Cell
+    {
+        display: table-cell;
+        width: 30px;
+        text-align: center;
+        margin-top: 0px;
+        padding-left: 5px;
+        padding-right: 5px;
+    }
+    .today
+    {
+        color: red;
+        font-weight: bold;
+        border: solid;
+        border-radius: 12px;
+        border-width: thin;
+    }
+    .normal
+    {
+        color: rgb(78, 78, 78);
+        font-weight: bold;
+        border: none;
+    }
+</style>
