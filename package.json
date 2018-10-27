@@ -18,7 +18,5 @@
     "start": "sirv public",
     "start:dev": "sirv public --dev"
   },
-  "dependencies": {
-    "ntp-time-sync": "^0.1.0"
-  }
+  "dependencies": {}
 }
