@@ -1,17 +1,7 @@
 import App from './App.html';
 
 var app = new App({
-	target: document.body,
-	data: {
-		"title": "تقویم",
-		"h0": "ش",
-		"h1": "ی",
-		"h2": "د",
-		"h3": "س",
-		"h4": "چ",
-		"h5": "پ",
-		"h6": "ج",
-	}
+	target: document.body
 });
 
 
