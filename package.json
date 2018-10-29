@@ -9,6 +9,7 @@
     "rollup-plugin-svelte": "^4.3.1",
     "rollup-plugin-terser": "^3.0.0",
     "sirv-cli": "^0.2.2",
+    "surge": "^0.20.1",
     "svelte": "^2.13.5"
   },
   "scripts": {
@@ -16,7 +17,10 @@
     "autobuild": "rollup -c -w",
     "dev": "run-p start:dev autobuild",
     "start": "sirv public",
-    "start:dev": "sirv public --dev"
+    "start:dev": "sirv public --dev",
+    "deploy": "surge public ncal.surge.sh"
   },
-  "dependencies": {}
+  "dependencies": {
+    "whatwg-fetch": "^3.0.0"
+  }
 }

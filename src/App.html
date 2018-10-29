@@ -5,10 +5,26 @@
 
 <script>
     import Calendar from './Calendar.html';
-    import ntp from 'ntp-time-sync';
+    import 'whatwg-fetch';
 
     export default {
         components : { Calendar },
+        oncreate() {
+            var urly = window.location.href;
+            var conf = {
+                method: "GET",
+                cache: "no-cache",
+            }
+            fetch(urly, conf)
+                .then(res => {
+                    var date = new Date(res.headers.get('Date'));
+                    console.log(date);
+                    return res.json();
+                })
+                .then(data => {
+                    console.log(date)
+                })
+        },
         data() {
             return {
                 td_date: 23,
