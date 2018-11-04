@@ -1,14 +1,18 @@
 
+<div class='clock'>
+    <Clock time={curr_time}/>
+</div>
 <div class='calendar'>
     <Calendar td_date={td_date} td_dow={td_dow}/>
 </div>
 
 <script>
     import Calendar from './Calendar.html';
+    import Clock from './Clock.html';
     import 'whatwg-fetch';
 
     export default {
-        components : { Calendar },
+        components : { Calendar, Clock },
         oncreate() {
             var urly = window.location.href;
             var conf = {
@@ -18,15 +22,17 @@
             fetch(urly, conf)
                 .then(res => {
                     var date = new Date(res.headers.get('Date'));
-                    console.log(date);
-                    return res.json();
-                })
-                .then(data => {
-                    console.log(date)
+                    this.set({
+                        curr_time: date,
+                        td_dow: date.getDay(),
+                        td_date: date.getDate()
+                    })
+                    console.log("server date is: ", date)
                 })
         },
         data() {
             return {
+                curr_time: new Date(0),
                 td_date: 23,
                 td_dow: 5,
             }
@@ -42,5 +48,12 @@
         text-align: center;
         margin: 0 auto;
 
+    }
+    .clock {
+        align-content: center;
+        text-align: center;
+        margin: 0 auto;
+        width: 200px;
+        height: 200px;
     }
 </style>
