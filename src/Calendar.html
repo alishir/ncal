@@ -30,8 +30,10 @@
 		<div class="Row">
 			{#each days_in_week as day_obj}
         	    <div class="Cell {day_obj.type}">
-                    <p>{day_obj.day}</p>
-        	    </div>
+                    <div class="jalali">{day_obj.day}</div>
+                    <div class="hijri">{day_obj.day}</div>
+                    <div class="miladi">{day_obj.day}</div>
+                </div>
 			{/each}
 		</div>
     {/each}
@@ -129,13 +131,12 @@
         -webkit-border-radius: 6px;
         border-radius: 6px;
         border-spacing: 0px;
-        font-family: Helvetica;
+        font-family: ncal-font;
         margin: 0 auto;
     }
     .Title
     {
         display: table-caption;
-        text-align: center;
         font-weight: bold;
         font-size: larger;
     }
@@ -143,7 +144,6 @@
     {
         display: table-row;
         font-weight: bold;
-        text-align: center;
         background-color: gray;
         color: #fff;
         -moz-box-sizing: border-box;
@@ -152,6 +152,7 @@
         border-radius: 6px;
         padding-left: 5px;
         padding-right: 5px;
+        font-size: 22px;
     }
     .Row
     {
@@ -160,11 +161,11 @@
     .Cell
     {
         display: table-cell;
-        width: 30px;
-        text-align: center;
+        width: 14.28%;
         margin-top: 0px;
-        padding-left: 5px;
-        padding-right: 5px;
+        padding-left: 8px;
+        padding-right: 8px;
+    
     }
     .today
     {
@@ -179,5 +180,37 @@
         color: rgb(78, 78, 78);
         font-weight: bold;
         border: none;
+    }
+    .jalali
+    {
+        box-sizing: border-box;
+        text-align: center;
+        float: none;
+        position: static;
+        line-height: 24px;
+        z-index: auto;
+        font-size: 24px;
+        padding-bottom: 3px;
+        padding-top: 8px;
+        padding-right: 2px;
+        padding-left: 2px;
+    }
+    .hijri
+    {
+        position: static;
+        float: right;
+        font-size: 14px;
+        line-height: 14px;
+        padding-bottom: 3px;
+        padding-left: 3px;
+    }
+    .miladi
+    {
+        position: static;
+        float: left;
+        font-size: 11.55px;
+        line-height: 11.55px;
+        padding-bottom: 3px;
+        padding-right: 3px;
     }
 </style>

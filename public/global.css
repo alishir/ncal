@@ -59,3 +59,8 @@ button:active {
 button:focus {
 	border-color: #666;
 }
+
+@font-face {
+	font-family: ncal-font;
+	src: url(https://lib.arvancloud.com/ar/font/Mitra/Mitra.woff);
+}
