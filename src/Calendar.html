@@ -1,28 +1,28 @@
 <div class="Table">
-    <div class="Title">
+    <!-- <div class="Title">
         <p>{title}</p>
-    </div>
+    </div> -->
     <div class="Heading">
         <div class="Cell">
-            <p>{h6}</p>
+            <p>{h0}</p>
         </div>
         <div class="Cell">
-            <p>{h5}</p>
+            <p>{h1}</p>
         </div>
         <div class="Cell">
-            <p>{h4}</p>
+            <p>{h2}</p>
         </div>
 				<div class="Cell">
             <p>{h3}</p>
         </div>
         <div class="Cell">
-            <p>{h2}</p>
+            <p>{h4}</p>
         </div>
         <div class="Cell">
-            <p>{h1}</p>
+            <p>{h5}</p>
         </div>
 			<div class="Cell">
-            <p>{h0}</p>
+            <p>{h6}</p>
         </div>
     </div>
 	
@@ -75,14 +75,18 @@
             }
             curr_week.push({day: day, type: type});
         }
-        weeks.push(curr_week.reverse());
+        // prepend some empty days
+        while (curr_week.length < 7) {
+            curr_week.unshift({day: '', type: ''})
+        }
+        weeks.push(curr_week);
         
         var base = first_week[first_week.length - 1] + 1;
         for (var i = 0; i <= 31 - base; i++) {
             type = "normal";
             if (i % 7 === 0) {
                 if (i !== 0) {
-                    weeks.push(curr_week.reverse());
+                    weeks.push(curr_week);
                 }
                 curr_week = [];
             }
@@ -92,11 +96,7 @@
             curr_week.push({day: i + base, type: type});
         }
         if (curr_week.length > 0) {
-            var fill_len = 7 - curr_week.length
-            for (var i = 0; i < fill_len; i++) {
-                curr_week.push({day: '', type: "normal"})
-            }
-            weeks.push(curr_week.reverse());
+            weeks.push(curr_week);
         }
 		return weeks;
 	}
@@ -162,6 +162,7 @@
     {
         display: table-cell;
         width: 14.28%;
+        line-height: 42px;
         margin-top: 0px;
         padding-left: 8px;
         padding-right: 8px;

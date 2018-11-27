@@ -83,9 +83,9 @@
 		},
 
 		computed: {
-			hours: ({ time }) => time.getHours(),
-			minutes: ({ time }) => time.getMinutes(),
-			seconds: ({ time }) => time.getSeconds()
+			hours: ({ time }) => time.getUTCHours(),
+			minutes: ({ time }) => time.getUTCMinutes(),
+			seconds: ({ time }) => time.getUTCSeconds()
 		},
 
 		oncreate() {

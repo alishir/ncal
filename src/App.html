@@ -22,12 +22,14 @@
             fetch(urly, conf)
                 .then(res => {
                     var date = new Date(res.headers.get('Date'));
-                    this.set({
-                        curr_time: date,
-                        td_dow: date.getDay(),
-                        td_date: date.getDate()
-                    })
-                    console.log("server date is: ", date)
+                    var local_date = new Date(date.valueOf() + 210 * 60 * 1000);  // UTC+3:30
+                    var state = {
+                        curr_time: local_date,
+                        td_dow: (local_date.getUTCDay() + 1) % 7,
+                        td_date: local_date.getUTCDate()
+                    };
+                    this.set(state)
+                    console.log("App state is: ", state)
                 })
         },
         data() {
@@ -41,19 +43,31 @@
 </script>
 
 <style>
-    .calendar {
-        background-color: rgb(199, 235, 223);
-        width: 415px;
-        align-content: center;
-        text-align: center;
-        margin: 0 auto;
-
-    }
     .clock {
         align-content: center;
         text-align: center;
+        float: right;
         margin: 0 auto;
-        width: 200px;
-        height: 200px;
+        width: 20%;
+    }
+
+    .calendar {
+        background-color: rgb(255, 255, 255);
+        float: right;
+        width: 40%;
+        align-content: center;
+        text-align: center;
+        margin: 0 auto;
+    }
+    
+    @media screen and (max-width: 400px) {
+        .calendar {
+            width: 100%;
+        }
+        .clock {
+            width: 50%;
+            padding-left: 25%;
+            padding-right: 25%;
+        }
     }
 </style>
