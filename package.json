@@ -21,6 +21,7 @@
     "deploy": "surge public ncal.surge.sh"
   },
   "dependencies": {
+    "moment-jalaali": "^0.8.1",
     "whatwg-fetch": "^3.0.0"
   }
 }
