@@ -75,24 +75,26 @@
 </style>
 
 <script>
+	import moment from 'moment-jalaali';
+
 	export default {
 		data() {
 			return {
-				time: new Date()
+				time: moment()
 			};
 		},
 
 		computed: {
-			hours: ({ time }) => time.getUTCHours(),
-			minutes: ({ time }) => time.getUTCMinutes(),
-			seconds: ({ time }) => time.getUTCSeconds()
+			hours: ({ time }) => time.utc().hour(),
+			minutes: ({ time }) => time.utc().minute(),
+			seconds: ({ time }) => time.utc().second()
 		},
 
 		oncreate() {
 			this.interval = setInterval(() => {
                 var {time, h, m, s} = this.get();
-                var ntime = time.valueOf() + 1000;
-				this.set({ time: new Date(ntime) });
+				time.add(1, 'second');
+				this.set({ time: time });
 			}, 1000);
 		},
 

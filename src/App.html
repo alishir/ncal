@@ -1,6 +1,6 @@
 
 <div class='clock'>
-    <Clock time={curr_time}/>
+    <Clock time={mdate}/>
 </div>
 <div class='calendar'>
     <Calendar td_date={td_date} td_dow={td_dow}/>
@@ -10,6 +10,7 @@
     import Calendar from './Calendar.html';
     import Clock from './Clock.html';
     import 'whatwg-fetch';
+	import moment from 'moment-jalaali';
 
     export default {
         components : { Calendar, Clock },
@@ -23,18 +24,22 @@
                 .then(res => {
                     var date = new Date(res.headers.get('Date'));
                     var local_date = new Date(date.valueOf() + 210 * 60 * 1000);  // UTC+3:30
+					var mdate = moment(local_date);
+					console.log(mdate.format('jYYYY/jM/jD'));
+
                     var state = {
-                        curr_time: local_date,
+						mdate: mdate,
                         td_dow: (local_date.getUTCDay() + 1) % 7,
                         td_date: local_date.getUTCDate()
                     };
                     this.set(state)
+					console.log("salam");
                     console.log("App state is: ", state)
                 })
         },
         data() {
             return {
-                curr_time: new Date(0),
+				mdate: moment(),
                 td_date: 23,
                 td_dow: 5,
             }
