@@ -1,6 +1,6 @@
 
 <div class='clock'>
-    <Clock time={mdate}/>
+    <Clock time={tdate}/>
 </div>
 <div class='calendar'>
 	<Calendar mdate={mdate} /> 
@@ -29,8 +29,7 @@
 
                     var state = {
 						mdate: mdate,
-                        td_dow: (local_date.getUTCDay() + 1) % 7,
-                        td_date: local_date.getUTCDate()
+						tdate: moment(mdate),
                     };
                     this.set(state)
                     console.log("App state is: ", state)
@@ -39,8 +38,7 @@
         data() {
             return {
 				mdate: moment(),
-                td_date: 23,
-                td_dow: 5,
+				tdate: moment(),
             }
         }
     }
