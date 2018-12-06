@@ -3,7 +3,7 @@
     <Clock time={mdate}/>
 </div>
 <div class='calendar'>
-    <Calendar td_date={td_date} td_dow={td_dow}/>
+	<Calendar mdate={mdate} /> 
 </div>
 
 <script>
@@ -33,7 +33,6 @@
                         td_date: local_date.getUTCDate()
                     };
                     this.set(state)
-					console.log("salam");
                     console.log("App state is: ", state)
                 })
         },
